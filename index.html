@@ -331,10 +331,7 @@
 
     
 
-    <div class="icons">
-      <a class="icon-btn" href="https://discord.com/users/1347299015842070621" target="_blank">☯</a>
-      <a class="icon-btn" href="#preview-page" onclick="showPreviewPage()">□</a>
-    </div>
+    
   </header>
 
   <main class="hero">
@@ -369,7 +366,28 @@
 
   <section class="preview-page" id="preview-page"></section>
 
+  <audio id="startupSound" autoplay>
+    <source src="videoplayback (1).mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    window.addEventListener('load', () => {
+      const sound = document.getElementById('startupSound');
+
+      sound.volume = 1;
+
+      const playPromise = sound.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          document.body.addEventListener('click', () => {
+            sound.play();
+          }, { once: true });
+        });
+      }
+    });
+
+
     function showPreviewPage() {
       document.body.classList.add('preview-open');
 
