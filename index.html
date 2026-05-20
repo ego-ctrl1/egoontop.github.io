@@ -305,6 +305,33 @@
         display: none;
       }
     }
+  
+    .preview-page {
+      display: none;
+      min-height: calc(100vh - 110px);
+      background:
+        radial-gradient(circle at 25% 30%, rgba(170, 70, 255, 0.45), transparent 30%),
+        radial-gradient(circle at 80% 60%, rgba(120, 55, 220, 0.45), transparent 28%),
+        linear-gradient(180deg, #170820 0%, #08040f 100%);
+    }
+
+    body.preview-open .hero,
+    body.preview-open .bottom-tag {
+      display: none;
+    }
+
+    body.preview-open .preview-page {
+      display: block;
+    }
+
+    body.preview-open nav a {
+      background: transparent;
+    }
+
+    body.preview-open nav a.preview-link {
+      background: #160027;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -314,8 +341,8 @@
     <div class="logo">E</div>
 
     <nav>
-      <a href="#" class="active">Home</a>
-      <a href="#">Shop</a>
+      <a href="#" class="active" onclick="showHomePage()">Home</a>
+      <a href="#preview-page" class="preview-link active" onclick="showPreviewPage()">Preview</a>
     </nav>
 
     <div class="icons">
@@ -343,58 +370,41 @@
       </div>
     </section>
 
-    <section class="preview-wrap">
-      <div class="small-card card-one">
-        <strong>Instant Access</strong>
-        <p>Available right after purchase</p>
-      </div>
-
-      <div class="preview">
-        <div class="fake-app">
-          <div class="sidebar">
-            <div class="mark">TZ</div>
-            <div>●</div>
-            <div>◉</div>
-            <div>◒</div>
-            <div>▤</div>
-            <div>⚙</div>
-          </div>
-
-          <div class="content">
-            <div class="bar">
-              <span>Weapons</span>
-              <div class="avatar"></div>
-            </div>
-
-            <div class="panels">
-              <div class="panel">
-                <strong>Aim</strong>
-                <div class="line"></div>
-                <p>✔ Aimbot</p><br>
-                <p>✔ FOV</p><br>
-                <p>✔ Magic Bullet</p>
-              </div>
-
-              <div class="panel">
-                <strong>Settings</strong>
-                <div class="line"></div>
-                <p>Smooth Horizontal</p>
-                <div class="line"></div>
-                <p>Smooth Vertical</p>
-                <div class="line"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="small-card card-two">
-        <strong>Premium Quality</strong>
-        <p>Updated & clean design</p>
+    <section class="preview-wrap" id="preview">
+      <div class="preview clean-preview">
+        <video autoplay muted loop playsinline controls style="width:100%; border-radius:20px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+          <source src="videoplayback.mp4" type="video/mp4">
+        </video>
       </div>
     </section>
   </main>
 
-  <div class="bottom-tag">⚡ Best Sellers</div>
+  <section class="preview-page" id="preview-page"></section>
+
+  <script>
+    function showPreviewPage() {
+      document.body.classList.add('preview-open');
+
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      document.querySelector('.preview-link').classList.add('active');
+    }
+
+    function showHomePage() {
+      document.body.classList.remove('preview-open');
+
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      document.querySelector('nav a').classList.add('active');
+    }
+
+    if (window.location.hash === '#preview-page') {
+      showPreviewPage();
+    }
+  </script>
 </body>
 </html>
