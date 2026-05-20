@@ -374,7 +374,7 @@
     window.addEventListener('load', () => {
       const sound = document.getElementById('startupSound');
 
-      sound.volume = 0.5;
+      sound.volume = 0.25;
 
       const playPromise = sound.play();
 
@@ -389,6 +389,10 @@
 
 
     function showPreviewPage() {
+      const sound = document.getElementById('startupSound');
+      sound.pause();
+      sound.currentTime = 0;
+
       document.body.classList.add('preview-open');
 
       document.querySelectorAll('nav a').forEach(link => {
@@ -399,6 +403,7 @@
     }
 
     function showHomePage() {
+
       document.body.classList.remove('preview-open');
 
       document.querySelectorAll('nav a').forEach(link => {
@@ -409,6 +414,9 @@
     }
 
     if (window.location.hash === '#preview-page') {
+      const sound = document.getElementById('startupSound');
+      sound.pause();
+      sound.currentTime = 0;
       showPreviewPage();
     }
   </script>
